@@ -17,13 +17,22 @@ def main():
     tree = ET.parse(args.filename)
     root = tree.getroot()
 
+    # Validate the NML file
+    if root.tag != 'NML' or 'VERSION' not in root.attrib:
+        print("Error: The file is not a valid NML file.")
+        return
+
+    head = root.find('HEAD')
+    if head is None or 'COMPANY' not in head.attrib or 'PROGRAM' not in head.attrib:
+        print("Error: The file is not a valid NML file.")
+        return
+
     # Extract relevant data: tracknumber, artist, title, and label from attributes
     tracks = []
     for i, entry in enumerate(root.findall('.//ENTRY'), start=1):
         artist = entry.attrib.get('ARTIST', 'Unknown Artist')
         title = clean_title(entry.attrib.get('TITLE', 'Unknown Title'))
-        label = entry.find('.//INFO').attrib.get('LABEL', 'Unknown Label') if entry.find(
-            './/INFO') is not None else 'Unknown Label'
+        label = entry.find('.//INFO').attrib.get('LABEL', 'Unknown Label') if entry.find('.//INFO') is not None else 'Unknown Label'
 
         # Only add the track if it has meaningful data
         if artist != 'Unknown Artist' or title != 'Unknown Title':
