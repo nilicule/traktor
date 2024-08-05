@@ -38,3 +38,21 @@ To parse and format a playlist from an HTML file, use the `parsePlaylist.py` scr
 
 ```sh
 python parsePlaylist.py <filename>
+```
+
+Replace <filename> with the path to your HTML file.
+
+### Parsing NML Playlists
+
+To parse and format a playlist from an NML file, use the `parseTraktor.py` script:
+
+```sh
+python parseTraktor.py <filename>
+```
+
+Replace <filename> with the path to your NML file.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+```
